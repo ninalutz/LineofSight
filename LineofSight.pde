@@ -19,7 +19,13 @@ void setup() {
   
   LOS = map.sweep(light);
   
+  background(0);
   map.display();
+  fill(#FFFF00);
+  noStroke();
+  ellipse(light.x, light.y, 10, 10);
+  
+  noLoop();
 }
 
 void draw() {
@@ -34,6 +40,7 @@ void draw() {
   // Display LineOfSight
   beginShape();
   fill(#FFFF00, 50);
+  noStroke();
   for (int i=0; i<LOS.size(); i++) {
     vertex(LOS.get(i).x, LOS.get(i).y);
   }
@@ -42,6 +49,11 @@ void draw() {
   fill(#FFFF00);
   noStroke();
   ellipse(light.x, light.y, 10, 10);
+  noLoop();
+}
+
+void mouseMoved() {
+  loop();
 }
 
 class Walls {
@@ -141,9 +153,13 @@ class Walls {
           }
         }
         if (!duplicate) {
+          
           if ( rayLineIntersect(walls.get(w), source, sortedEndPoints.get(e)) ) {
             intersectedWalls.add(walls.get(w).index);
             intersectedEndPoint.add(false);
+            println(e + ", " + w + ": intersected");
+          } else {
+            println(e + ", " + w + ": not intersected");
           }
         }
       } // Finished populating walls with intersections for a given endpoint
@@ -182,6 +198,7 @@ class Walls {
       if (sortedIntersectedWalls.size() > 1) {
         secondNearest = sortedIntersectedWalls.get(1);
         secondNearestIsEndpoint = sortedIntersectedEndPoint.get(1);
+        println("secondNearest");
       }
 //      for (int i=1; i<intersectedWalls.size(); i++) { // If intersection occurrs in two different places
 //        if (walls.get(intersectedWalls.get(i)).distance < walls.get(nearest).distance) {
@@ -205,6 +222,7 @@ class Walls {
       println("endPoint " + e + "; nearestIsEndpoint: " + nearestIsEndpoint);
       println("endPoint " + e + "; secondNearest: " + secondNearest);
       println("endPoint " + e + "; secondNearestIsEndpoint: " + secondNearestIsEndpoint);
+      println(".");
       
         if (p == 0) {
           LineOfSight.add(walls.get(nearest).intersect);
@@ -237,11 +255,14 @@ class Walls {
 //      }
 
     }
+    
+    println("---");
     return LineOfSight;
   }
   
   boolean rayLineIntersect(Wall wall, PVector source, EndPoint point) {
     
+    println("rayLineTesting..");
     boolean over = false;
     
     float x1 = wall.begin.x;
@@ -257,6 +278,10 @@ class Walls {
     direction.setMag(width+height);
     float x4 = source.x+direction.x;
     float y4 = source.y+direction.y;
+    
+    stroke(#0000FF);
+    line(x1, y1, x2, y2);
+    line(x3, y3, x4, y4);
 
     float a1 = y2 - y1;
     float b1 = x1 - x2;
@@ -273,10 +298,12 @@ class Walls {
     else {
       float x = (b2*c1 - b1*c2)/det;
       float y = (a1*c2 - a2*c1)/det;
-      if(x >= min(x1, x2) && x <= max(x1, x2) && 
-         x >= min(x3, x4) && x <= max(x3, x4) &&
-         y >= min(y1, y2) && y <= max(y1, y2) &&
-         y >= min(y3, y4) && y <= max(y3, y4)){
+      println(x, y);
+      float tolerance = 0.01;
+      if(x >= min(x1, x2) -tolerance && x <= max(x1, x2) +tolerance && 
+         x >= min(x3, x4) -tolerance && x <= max(x3, x4) +tolerance &&
+         y >= min(y1, y2) -tolerance && y <= max(y1, y2) +tolerance &&
+         y >= min(y3, y4) -tolerance && y <= max(y3, y4) +tolerance ){
         over = true; 
         wall.intersect = new PVector(x, y);
         wall.distance = sqrt(sq(x-source.x) + sq(y-source.y));
