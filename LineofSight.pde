@@ -7,9 +7,23 @@ void setup() {
   
   int border = 70;
   
+  // Cursor needs to be inside of enclosed space for algorithm to work
+  
   map = new Walls();
   map.addWall(new PVector(100, 300), new PVector(300, 100));
-  map.addWall(new PVector(200, 400), new PVector(400, 200));
+  map.addWall(new PVector(200, 300), new PVector(400, 200));
+//  map.addWall(new PVector(150, 350), new PVector(350, 150));
+
+//  for (int i=0; i<10; i++) {
+//    map.addWall(
+//    new PVector(random(border, width-border), random(border, height-border)), new PVector(random(border, width-border), random(border, height-border))
+//    );
+//  }
+
+  for (int i=0; i<10; i++) {
+    map.addWall( new PVector(border + 30*i,350), new PVector(border + 30*i + 10,350) );
+  }
+  
   map.addWall(new PVector(border, border), new PVector(width-border, border));
   map.addWall(new PVector(width-border, border), new PVector(width-border, height-border));
   map.addWall(new PVector(width-border, height-border), new PVector(border, height-border));
@@ -157,9 +171,6 @@ class Walls {
           if ( rayLineIntersect(walls.get(w), source, sortedEndPoints.get(e)) ) {
             intersectedWalls.add(walls.get(w).index);
             intersectedEndPoint.add(false);
-            println(e + ", " + w + ": intersected");
-          } else {
-            println(e + ", " + w + ": not intersected");
           }
         }
       } // Finished populating walls with intersections for a given endpoint
@@ -198,7 +209,6 @@ class Walls {
       if (sortedIntersectedWalls.size() > 1) {
         secondNearest = sortedIntersectedWalls.get(1);
         secondNearestIsEndpoint = sortedIntersectedEndPoint.get(1);
-        println("secondNearest");
       }
 //      for (int i=1; i<intersectedWalls.size(); i++) { // If intersection occurrs in two different places
 //        if (walls.get(intersectedWalls.get(i)).distance < walls.get(nearest).distance) {
@@ -218,11 +228,11 @@ class Walls {
       
       // Add Points to LineOfSite based upon current step of sweep 
       
-      println("endPoint " + e + "; nearest: " + nearest);
-      println("endPoint " + e + "; nearestIsEndpoint: " + nearestIsEndpoint);
-      println("endPoint " + e + "; secondNearest: " + secondNearest);
-      println("endPoint " + e + "; secondNearestIsEndpoint: " + secondNearestIsEndpoint);
-      println(".");
+//      println("endPoint " + e + "; nearest: " + nearest);
+//      println("endPoint " + e + "; nearestIsEndpoint: " + nearestIsEndpoint);
+//      println("endPoint " + e + "; secondNearest: " + secondNearest);
+//      println("endPoint " + e + "; secondNearestIsEndpoint: " + secondNearestIsEndpoint);
+//      println(".");
       
         if (p == 0) {
           LineOfSight.add(walls.get(nearest).intersect);
@@ -256,13 +266,13 @@ class Walls {
 
     }
     
-    println("---");
+//    println("---");
     return LineOfSight;
   }
   
   boolean rayLineIntersect(Wall wall, PVector source, EndPoint point) {
     
-    println("rayLineTesting..");
+//    println("rayLineTesting..");
     boolean over = false;
     
     float x1 = wall.begin.x;
@@ -279,9 +289,9 @@ class Walls {
     float x4 = source.x+direction.x;
     float y4 = source.y+direction.y;
     
-    stroke(#0000FF);
-    line(x1, y1, x2, y2);
-    line(x3, y3, x4, y4);
+//    stroke(#0000FF);
+//    line(x1, y1, x2, y2);
+//    line(x3, y3, x4, y4);
 
     float a1 = y2 - y1;
     float b1 = x1 - x2;
@@ -298,7 +308,7 @@ class Walls {
     else {
       float x = (b2*c1 - b1*c2)/det;
       float y = (a1*c2 - a2*c1)/det;
-      println(x, y);
+//      println(x, y);
       float tolerance = 0.01;
       if(x >= min(x1, x2) -tolerance && x <= max(x1, x2) +tolerance && 
          x >= min(x3, x4) -tolerance && x <= max(x3, x4) +tolerance &&
@@ -356,14 +366,14 @@ class Walls {
     void display(int id) {
       fill(#FF0000);
       noStroke();
-      ellipse(location.x, location.y, 10, 10);
+//      ellipse(location.x, location.y, 10, 10);
       for (int i=0; i<indices.size(); i++) {
-        text(indices.get(i), location.x+10, location.y+(1+i)*15);
-        text(angle, location.x+10, location.y+(-1)*15);
+//        text(indices.get(i), location.x+10, location.y+(1+i)*15);
+//        text(angle, location.x+10, location.y+(-1)*15);
       }
       fill(#FFFFFF);
       // Display clockwise ranking of EndPoint, starting from 9 o'clock
-      text(id, location.x+10, location.y+(-2)*15);
+//      text(id, location.x+10, location.y+(-2)*15);
      
     }
   }
@@ -398,8 +408,8 @@ class Wall {
     stroke(#00FF00);
     fill(#00FF00);
     line(begin.x, begin.y, end.x, end.y);
-    text(index, (begin.x + end.x ) / 2.0 + 10, (begin.y + end.y ) / 2.0 + 15);
-    text(avgDistance, (begin.x + end.x ) / 2.0 + 10, (begin.y + end.y ) / 2.0 + 2*15);
-    text(distance, (begin.x + end.x ) / 2.0 + 10, (begin.y + end.y ) / 2.0 + 3*15);
+//    text(index, (begin.x + end.x ) / 2.0 + 10, (begin.y + end.y ) / 2.0 + 15);
+//    text(avgDistance, (begin.x + end.x ) / 2.0 + 10, (begin.y + end.y ) / 2.0 + 2*15);
+//    text(distance, (begin.x + end.x ) / 2.0 + 10, (begin.y + end.y ) / 2.0 + 3*15);
   }
 }
