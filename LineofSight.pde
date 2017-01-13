@@ -215,30 +215,16 @@ class Walls {
         secondNearest = sortedIntersectedWalls.get(1);
         secondNearestIsEndpoint = sortedIntersectedEndPoint.get(1);
       }
-//      for (int i=1; i<intersectedWalls.size(); i++) { // If intersection occurrs in two different places
-//        if (walls.get(intersectedWalls.get(i)).distance < walls.get(nearest).distance) {
-//          secondNearestIsEndpoint = nearestIsEndpoint;
-//          secondNearest = nearest;
-//          nearest = intersectedWalls.get(i);
-//          nearestIsEndpoint = intersectedEndPoint.get(i);
-//        } else if (walls.get(intersectedWalls.get(i)).distance == walls.get(nearest).distance) { // If two intersections are co-located (i.e. two different walls are connected)
-//          if (walls.get(intersectedWalls.get(i)).avgDistance < walls.get(nearest).avgDistance) {
-//            secondNearestIsEndpoint = nearestIsEndpoint;
-//            secondNearest = nearest;
-//            nearest = intersectedWalls.get(i);
-//            nearestIsEndpoint = intersectedEndPoint.get(i);
-//          }
-//        }
-//      } // Finished finding nearest wall intersect
+      
+      if (debug) {
+        println("endPoint " + e + "; nearest: " + nearest);
+        println("endPoint " + e + "; nearestIsEndpoint: " + nearestIsEndpoint);
+        println("endPoint " + e + "; secondNearest: " + secondNearest);
+        println("endPoint " + e + "; secondNearestIsEndpoint: " + secondNearestIsEndpoint);
+        println(".");
+      }
       
       // Add Points to LineOfSite based upon current step of sweep 
-      
-//      println("endPoint " + e + "; nearest: " + nearest);
-//      println("endPoint " + e + "; nearestIsEndpoint: " + nearestIsEndpoint);
-//      println("endPoint " + e + "; secondNearest: " + secondNearest);
-//      println("endPoint " + e + "; secondNearestIsEndpoint: " + secondNearestIsEndpoint);
-//      println(".");
-      
       // Line of Sight Draw Logic ...
         if (p == 0) {
           LineOfSight.add(walls.get(nearest).intersect);
@@ -260,24 +246,11 @@ class Walls {
         }
         
         lastNearest = nearest;
-      
-//      if (walls.get(nearest).sweepStatus == 0 && nearestIsEndpoint) {
-//        if (!secondNearestIsEndpoint) {
-//          LineOfSight.add(walls.get(secondNearest).intersect);
-//        }
-//        walls.get(nearest).sweepStatus++;
-//        LineOfSight.add(walls.get(nearest).intersect);
-//      } else if (walls.get(nearest).sweepStatus == 1 && nearestIsEndpoint) {
-//        walls.get(nearest).sweepStatus++;
-//        LineOfSight.add(walls.get(nearest).intersect);
-//        if (!secondNearestIsEndpoint) {
-//          LineOfSight.add(walls.get(secondNearest).intersect);
-//        }
-//      }
-
     }
     
-//    println("---");
+    if (debug) {
+      println("---");
+    }
     return LineOfSight;
   }
   
