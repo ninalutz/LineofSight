@@ -20,9 +20,9 @@ void setup() {
 //    );
 //  }
 
-  for (int i=0; i<10; i++) {
-    map.addWall( new PVector(border + 30*i,350), new PVector(border + 30*i + 10,350) );
-  }
+//  for (int i=0; i<10; i++) {
+//    map.addWall( new PVector(border + 30*i,350), new PVector(border + 30*i + 10,350) );
+//  }
   
   map.addWall(new PVector(border, border), new PVector(width-border, border));
   map.addWall(new PVector(width-border, border), new PVector(width-border, height-border));
@@ -297,9 +297,9 @@ class Walls {
     float x4 = source.x+direction.x;
     float y4 = source.y+direction.y;
     
-//    stroke(#0000FF);
-//    line(x1, y1, x2, y2);
-//    line(x3, y3, x4, y4);
+    stroke(#0000FF);
+    line(x1, y1, x2, y2);
+    line(x3, y3, x4, y4);
 
     float a1 = y2 - y1;
     float b1 = x1 - x2;
@@ -374,14 +374,14 @@ class Walls {
     void display(int id) {
       fill(#FF0000);
       noStroke();
-//      ellipse(location.x, location.y, 10, 10);
+      ellipse(location.x, location.y, 10, 10);
       for (int i=0; i<indices.size(); i++) {
-//        text(indices.get(i), location.x+10, location.y+(1+i)*15);
-//        text(angle, location.x+10, location.y+(-1)*15);
+        text(indices.get(i), location.x+10, location.y+(1+i)*15);
+        text(angle, location.x+10, location.y+(-1)*15);
       }
       fill(#FFFFFF);
       // Display clockwise ranking of EndPoint, starting from 9 o'clock
-//      text(id, location.x+10, location.y+(-2)*15);
+      text(id, location.x+10, location.y+(-2)*15);
      
     }
   }
@@ -416,8 +416,8 @@ class Wall {
     stroke(#00FF00);
     fill(#00FF00);
     line(begin.x, begin.y, end.x, end.y);
-//    text(index, (begin.x + end.x ) / 2.0 + 10, (begin.y + end.y ) / 2.0 + 15);
-//    text(avgDistance, (begin.x + end.x ) / 2.0 + 10, (begin.y + end.y ) / 2.0 + 2*15);
-//    text(distance, (begin.x + end.x ) / 2.0 + 10, (begin.y + end.y ) / 2.0 + 3*15);
+    text(index, (begin.x + end.x ) / 2.0 + 10, (begin.y + end.y ) / 2.0 + 15);
+    text(avgDistance, (begin.x + end.x ) / 2.0 + 10, (begin.y + end.y ) / 2.0 + 2*15);
+    text(distance, (begin.x + end.x ) / 2.0 + 10, (begin.y + end.y ) / 2.0 + 3*15);
   }
 }
