@@ -2,6 +2,9 @@ Walls map;
 PVector light;
 ArrayList<PVector> LOS;
 
+// Press 'd' to show debug visualization
+boolean debug = false;
+
 void setup() {
   size(500, 500);
   
@@ -20,9 +23,9 @@ void setup() {
 //    );
 //  }
 
-//  for (int i=0; i<10; i++) {
-//    map.addWall( new PVector(border + 30*i,350), new PVector(border + 30*i + 10,350) );
-//  }
+  for (int i=0; i<5; i++) {
+    map.addWall( new PVector(border + 60*i,350), new PVector(border + 60*i + 10,350) );
+  }
   
   map.addWall(new PVector(border, border), new PVector(width-border, border));
   map.addWall(new PVector(width-border, border), new PVector(width-border, height-border));
@@ -297,9 +300,11 @@ class Walls {
     float x4 = source.x+direction.x;
     float y4 = source.y+direction.y;
     
-    stroke(#0000FF);
-    line(x1, y1, x2, y2);
-    line(x3, y3, x4, y4);
+    if (debug) {
+      stroke(#0000FF);
+      line(x1, y1, x2, y2);
+      line(x3, y3, x4, y4);
+    }
 
     float a1 = y2 - y1;
     float b1 = x1 - x2;
@@ -334,7 +339,8 @@ class Walls {
     for (int i=0; i<walls.size(); i++)
       walls.get(i).display();
     for (int i=0; i<endPoints.size(); i++) {
-      sortedEndPoints.get(i).display(i);
+      if (debug)
+        sortedEndPoints.get(i).display(i);
     }
   }
   
@@ -416,8 +422,19 @@ class Wall {
     stroke(#00FF00);
     fill(#00FF00);
     line(begin.x, begin.y, end.x, end.y);
-    text(index, (begin.x + end.x ) / 2.0 + 10, (begin.y + end.y ) / 2.0 + 15);
-    text(avgDistance, (begin.x + end.x ) / 2.0 + 10, (begin.y + end.y ) / 2.0 + 2*15);
-    text(distance, (begin.x + end.x ) / 2.0 + 10, (begin.y + end.y ) / 2.0 + 3*15);
+    if (debug) {
+      text(index, (begin.x + end.x ) / 2.0 + 10, (begin.y + end.y ) / 2.0 + 15);
+      text(avgDistance, (begin.x + end.x ) / 2.0 + 10, (begin.y + end.y ) / 2.0 + 2*15);
+      text(distance, (begin.x + end.x ) / 2.0 + 10, (begin.y + end.y ) / 2.0 + 3*15);
+    }
+  }
+}
+
+void keyPressed() {
+  switch(key) {
+    case 'd': // Change horizontal 'slice' layer
+      debug = !debug;
+      loop();
+      break;
   }
 }
