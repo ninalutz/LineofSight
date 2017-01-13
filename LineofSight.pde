@@ -107,6 +107,7 @@ class Walls {
   }
   
   int lastNearest;
+  int lastDrawn;
   
   ArrayList<PVector> sweep(PVector source) {
     
@@ -237,14 +238,19 @@ class Walls {
         if (p == 0) {
           LineOfSight.add(walls.get(nearest).intersect);
         } else {
-          if (nearest != lastNearest) {
-            if (!secondNearestIsEndpoint)
+          if (nearest != lastDrawn) {
+            if (!secondNearestIsEndpoint) {
               LineOfSight.add(walls.get(secondNearest).intersect);
+            }
             LineOfSight.add(walls.get(nearest).intersect);
-          } else if (nearest == lastNearest && nearestIsEndpoint) {
+            lastDrawn = nearest;
+          } else if (nearest == lastDrawn && nearestIsEndpoint) {
             LineOfSight.add(walls.get(nearest).intersect);
-            if (!secondNearestIsEndpoint)
+            lastDrawn = nearest;
+            if (!secondNearestIsEndpoint) {
               LineOfSight.add(walls.get(secondNearest).intersect);
+              lastDrawn = secondNearest;
+            }
           }
         }
         
