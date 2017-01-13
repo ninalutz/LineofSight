@@ -53,6 +53,7 @@ void draw() {
   
   // Display LineOfSight
   beginShape();
+  //fill(#FF0000);
   fill(#FFFF00, 50);
   noStroke();
   for (int i=0; i<LOS.size(); i++) {
@@ -235,6 +236,7 @@ class Walls {
 //      println("endPoint " + e + "; secondNearestIsEndpoint: " + secondNearestIsEndpoint);
 //      println(".");
       
+      // Line of Sight Draw Logic ...
         if (p == 0) {
           LineOfSight.add(walls.get(nearest).intersect);
         } else {
