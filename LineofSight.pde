@@ -35,6 +35,8 @@ void setup() {
     bugs[i] = new Bug(random(margin, width - margin), random(margin, height - margin));
   }
   
+  initUDP();
+  
 //  noLoop();
 }
 
@@ -46,6 +48,17 @@ void draw() {
   text("Move mouse within red square. Press 'd' for debug visualization.", 10, width - 20);
     
   src.setLocation(mouseX, mouseY);
+  
+  for (int u=0; u<displayU/4; u++) {
+    for (int v=0; v<displayV/4; v++) {
+      if (tablePieceInput[u][v][0] > 0) {
+        src.setLocation(
+          margin + (0.25*u/displayU)*(width - 2*margin), 
+          margin + (0.25*v/displayU)*(height - 2*margin));
+      }
+    }
+  }
+  
   src.shineLight(map);
   
   for (Bug bug : bugs) {

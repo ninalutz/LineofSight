@@ -82,7 +82,8 @@ class Bug {
     headLoc.setMag(0.75*bodyWidth);
     headLoc.add(loc);
     
-    fill(#D4C3E3);
+    //fill(#D4C3E3);
+    fill(#333333);
     noStroke();
     ellipse(loc.x, loc.y, bodyWidth, bodyWidth);
     ellipse(headLoc.x, headLoc.y, 0.75*bodyWidth, 0.75*bodyWidth);
