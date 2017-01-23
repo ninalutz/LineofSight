@@ -35,7 +35,7 @@ class Bug {
       // Avoid Light Source
       srcVector = new PVector(source.x - loc.x, source.y - loc.y);
       if (srcVector.mag() < 100) {
-        srcVector.setMag(100);
+        srcVector.setMag(50);
         acc.sub(srcVector);
       }
       acc.setMag(0.1);
@@ -44,24 +44,25 @@ class Bug {
       
     }
     
+    int tolerance = 15;
     
     // Can't hide against outer walls
-    if (loc.x <= X_MIN) {
+    if (loc.x < X_MIN + tolerance) {
       vel.x += repel;
       loc.add(vel);
     }
     
-    if (loc.x >= X_MAX) {
+    if (loc.x >= X_MAX - tolerance) {
       vel.x -= repel;
       loc.add(vel);
     }
     
-    if (loc.y <= Y_MIN) {
+    if (loc.y <= Y_MIN + tolerance) {
       vel.y += repel;
       loc.add(vel);
     }
     
-    if (loc.y >= Y_MAX) {
+    if (loc.y >= Y_MAX - tolerance) {
       vel.y -= repel;
       loc.add(vel);
     }

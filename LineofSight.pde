@@ -29,7 +29,7 @@ void setup() {
   src.shineLight(map);
   
   // Initializes "bugs" that are sensitive to light
-  int numBugs = 50;
+  int numBugs = 100;
   bugs = new Bug[numBugs];
   for (int i=0; i<numBugs; i++) {
     bugs[i] = new Bug(random(margin, width - margin), random(margin, height - margin));
