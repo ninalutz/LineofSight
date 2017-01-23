@@ -15,6 +15,8 @@ class Bug {
   // Vector describing position of head relative to loc
   PVector headLoc;
   
+  boolean hiding = false;
+  
   Bug(float x, float y) {
     loc = new PVector();
     loc.x = x;
@@ -26,6 +28,8 @@ class Bug {
   }
   
   void update(boolean inLight, int X_MIN, int X_MAX, int Y_MIN, int Y_MAX, PVector source) {
+    hiding = inLight;
+    
     if (inLight) {
       // Hide!
       
@@ -82,5 +86,11 @@ class Bug {
     noStroke();
     ellipse(loc.x, loc.y, bodyWidth, bodyWidth);
     ellipse(headLoc.x, headLoc.y, 0.75*bodyWidth, 0.75*bodyWidth);
+    
+    if (hiding) {
+      fill(#FF0000);
+      textSize(12);
+      text("AHHH!", loc.x + bodyWidth, loc.y);
+    }
   }
 }
