@@ -6,6 +6,7 @@
 
 Walls map;
 Light src;
+Bug[] bugs;
 
 // Press 'd' to show debug visualization
 boolean debug = false;
@@ -27,35 +28,47 @@ void setup() {
   src.setLocation(0.5*width, 0.5*height);
   src.shineLight(map);
   
-  // Draw Walls
-  map.display();
-  // Draw Point Light with Area of Sight
-  src.display();
+  // Initializes "bugs" that are sensitive to light
+  int numBugs = 50;
+  bugs = new Bug[numBugs];
+  for (int i=0; i<numBugs; i++) {
+    bugs[i] = new Bug(random(margin, width - margin), random(margin, height - margin));
+  }
   
-  noLoop();
+//  noLoop();
 }
 
 void draw() {
   background(0);
-  text("2D Visibility Alorithm, Ira Winder, jiw@mit.edu", 10, 20);
+  stroke(#FFFFFF);
+  fill(#FFFFFF);
+  text("2D Visibility Alorithm (sort of works!), Ira Winder, jiw@mit.edu", 10, 20);
   text("Move mouse within red square. Press 'd' for debug visualization.", 10, width - 20);
     
   src.setLocation(mouseX, mouseY);
   src.shineLight(map);
-//  println(lightPolygon.pointInPolygon(250, 250));
+  
+  for (Bug bug : bugs) {
+    bug.update(src.lightPolygon.pointInPolygon(bug.loc.x, bug.loc.y), margin, width - margin, margin, height - margin, src.location);
+  }
   
   // Draw Walls
   map.display();
   // Draw Point Light with Area of Sight
   src.display();
+  // Draw Bugs
+  for (Bug bug : bugs) {
+    bug.display();
+  }
   
+  // Draw Margin
   stroke(#FF0000);
   strokeWeight(5);
   noFill();
   rect(margin, margin, width - 2*margin, height - 2*margin);
   strokeWeight(1);
   
-  noLoop();
+//  noLoop();
 }
 
 // A demonstration of wall configuration
@@ -93,9 +106,9 @@ void buildTheWalls(Walls w, int border) {
   
 }
 
-void mouseMoved() {
-  loop();
-}
+//void mouseMoved() {
+//  loop();
+//}
 
 void keyPressed() {
   switch(key) {
