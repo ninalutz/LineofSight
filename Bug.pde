@@ -88,9 +88,9 @@ class Bug {
     ellipse(headLoc.x, headLoc.y, 0.75*bodyWidth, 0.75*bodyWidth);
     
     if (hiding) {
-      fill(#FF0000);
+      fill(#CCCCCC);
       textSize(12);
-      text("AHHH!", loc.x + bodyWidth, loc.y);
+      text("eek!", loc.x + bodyWidth, loc.y);
     }
   }
 }
