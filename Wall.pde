@@ -328,8 +328,10 @@ class Wall {
   
   void display() {
     stroke(#00FF00);
+    strokeWeight(7);
     fill(#00FF00);
     line(begin.x, begin.y, end.x, end.y);
+    strokeWeight(1);
     if (debug) {
       text(index, (begin.x + end.x ) / 2.0 + 10, (begin.y + end.y ) / 2.0 + 15);
       text(avgDistance, (begin.x + end.x ) / 2.0 + 10, (begin.y + end.y ) / 2.0 + 2*15);
