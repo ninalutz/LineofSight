@@ -95,6 +95,8 @@ void receive( byte[] data, String ip, int port ) {  // <-- extended handler
     busyImporting = true;
     ImportData(split);
   }
+  
+  useMouse = false;
 }
 
 void sendCommand(String command, int port) {

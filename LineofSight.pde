@@ -11,6 +11,8 @@ Bug[] bugs;
 // Press 'd' to show debug visualization
 boolean debug = false;
 
+boolean useMouse = true;
+
 // Width of margin, in pixels
 int margin;
 
@@ -49,14 +51,18 @@ void draw() {
   text("2D Visibility Alorithm (sort of works!), Ira Winder, jiw@mit.edu", 10, 20);
   text("Move mouse within red square. Press 'd' for debug visualization.", 10, height - 20);
     
-  src.setLocation(mouseX, mouseY);
+  if (useMouse) {  
+    src.setLocation(mouseX, mouseY);
+  }
+  
+  int center = int( 0.5*(width - 2*margin)/inputUMax );
   
   for (int u=0; u<displayU/4; u++) {
     for (int v=0; v<displayV/4; v++) {
       if (tablePieceInput[u][v][0] > -1) {
         src.setLocation(
-          margin + (4.0*u/displayU)*(width - 2*margin), 
-          margin + (4.0*v/displayV)*(height - 2*margin));
+          margin + (4.0*(displayU/4 - u)/displayU)*(width - 2*margin) - center, 
+          margin + (4.0*v/displayV)*(height - 2*margin) + center);
       }
     }
   }
