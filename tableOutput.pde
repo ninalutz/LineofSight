@@ -29,7 +29,8 @@ int screenWidth = 1920;
 int screenHeight = 1080;
 
 // How big your table is, in pixels
-int tableWidth = 800;
+int tableWidth = 450;
+int tableHeight = 550;
 PGraphics table;
 
 import javax.swing.JFrame;
@@ -110,8 +111,8 @@ public class projApplet extends PApplet {
   }
   
   public void reset() {
-    surface = ks.createCornerPinSurface(tableWidth, tableWidth, 20);
-    offscreen = createGraphics(tableWidth, tableWidth);
+    surface = ks.createCornerPinSurface(tableWidth, tableHeight, 20);
+    offscreen = createGraphics(tableWidth, tableHeight);
     
     try{
       ks.load();
