@@ -14,6 +14,8 @@ boolean debug = false;
 // Width of margin, in pixels
 int margin;
 
+String systemOS = System.getProperty("os.name").substring(0,3);
+
 void setup() {
   size(500, 500);
   margin = 70;
@@ -82,6 +84,15 @@ void draw() {
   strokeWeight(1);
   
 //  noLoop();
+
+  // Exports table Graphic to Projector
+  projector = get(margin, margin, width - 2*margin, height-2*margin);
+  
+  // In Lieu of Projection creates the square table on main canvas for testing when on mac
+  if (systemOS.equals("Mac") && testProjectorOnMac) {
+    background(0);
+    image(projector, 0, 0);
+  }
 }
 
 // A demonstration of wall configuration
@@ -128,6 +139,9 @@ void keyPressed() {
     case 'd': // Change horizontal 'slice' layer
       debug = !debug;
       loop();
+      break;
+    case '`': //  "Enable Projection (`)"   // 21
+      toggle2DProjection();
       break;
   }
 }

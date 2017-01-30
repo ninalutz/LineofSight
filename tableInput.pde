@@ -1,4 +1,5 @@
-// Principally, this script ensures that a string is "caught" via UDP and coded into principal inputs of:
+// Principally, this script ensures that a string is "caught" from Colortizer
+// via UDP and coded into principal inputs of:
 // - tablePieceInput[][] or tablePieceInput[][][2] (rotation)
 // - UMax, VMax
 
