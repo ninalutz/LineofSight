@@ -1,4 +1,5 @@
-// Principally, this script ensures that a string is "caught" via UDP and coded into principal inputs of:
+// Principally, this script ensures that a string is "caught" from Colortizer
+// via UDP and coded into principal inputs of:
 // - tablePieceInput[][] or tablePieceInput[][][2] (rotation)
 // - UMax, VMax
 
@@ -94,6 +95,8 @@ void receive( byte[] data, String ip, int port ) {  // <-- extended handler
     busyImporting = true;
     ImportData(split);
   }
+  
+  useMouse = false;
 }
 
 void sendCommand(String command, int port) {

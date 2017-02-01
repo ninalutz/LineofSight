@@ -11,12 +11,16 @@ Bug[] bugs;
 // Press 'd' to show debug visualization
 boolean debug = false;
 
+boolean useMouse = true;
+
 // Width of margin, in pixels
 int margin;
 
+String systemOS = System.getProperty("os.name").substring(0,3);
+
 void setup() {
-  size(500, 500);
-  margin = 70;
+  size(450, 550);
+  margin = 0;
   background(0);
     
   // Constructs Opaque Walls in two dimensional space
@@ -29,7 +33,7 @@ void setup() {
   src.shineLight(map);
   
   // Initializes "bugs" that are sensitive to light
-  int numBugs = 100;
+  int numBugs = 30;
   bugs = new Bug[numBugs];
   for (int i=0; i<numBugs; i++) {
     bugs[i] = new Bug(random(margin, width - margin), random(margin, height - margin));
@@ -45,18 +49,21 @@ void draw() {
   stroke(#FFFFFF);
   fill(#FFFFFF);
   text("2D Visibility Alorithm (sort of works!), Ira Winder, jiw@mit.edu", 10, 20);
-  text("Move mouse within red square. Press 'd' for debug visualization.", 10, width - 20);
+  text("Move mouse within red square. Press 'd' for debug visualization.", 10, height - 20);
     
-  src.setLocation(mouseX, mouseY);
-  
-  for (int u=0; u<displayU/4; u++) {
-    for (int v=0; v<displayV/4; v++) {
-      if (tablePieceInput[u][v][0] > 0) {
-        src.setLocation(
-          margin + (0.25*u/displayU)*(width - 2*margin), 
-          margin + (0.25*v/displayU)*(height - 2*margin));
+  if (useMouse) {  
+    src.setLocation(mouseX, mouseY);
+  } else {  
+    int center = int( 0.5*(width - 2*margin)/inputUMax );
+    for (int u=0; u<displayU/4; u++) {
+      for (int v=0; v<displayV/4; v++) {
+        if (tablePieceInput[u][v][0] > -1) {
+          src.setLocation(
+            margin + (4.0*(displayU/4 - u)/displayU)*(width - 2*margin) - center, 
+            margin + (4.0*v/displayV)*(height - 2*margin) + center);
+        }
       }
-    }
+    } 
   }
   
   src.shineLight(map);
@@ -82,6 +89,15 @@ void draw() {
   strokeWeight(1);
   
 //  noLoop();
+
+  // Exports table Graphic to Projector
+  projector = get(margin, margin, width - 2*margin, height-2*margin);
+  
+  // In Lieu of Projection creates the square table on main canvas for testing when on mac
+  if (systemOS.equals("Mac") && testProjectorOnMac) {
+    background(0);
+    image(projector, 0, 0);
+  }
 }
 
 // A demonstration of wall configuration
@@ -128,6 +144,9 @@ void keyPressed() {
     case 'd': // Change horizontal 'slice' layer
       debug = !debug;
       loop();
+      break;
+    case '`': //  "Enable Projection (`)"   // 21
+      toggle2DProjection();
       break;
   }
 }

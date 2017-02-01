@@ -199,7 +199,7 @@ class Obstacle {
       
       // Display LineOfSight
       beginShape();
-      fill(#FFFF00, 100);
+      fill(#FFFF00);
       noStroke();
       if (drawOutline) stroke(#FFFFFF);
       for (int i=0; i<v.size(); i++) {
